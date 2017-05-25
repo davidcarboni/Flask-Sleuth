@@ -1,0 +1,278 @@
+2017-05-22 09:42:55.653  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.655  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.656  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.669  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-22 09:42:55.673  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.680  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.681  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-22 09:42:55.682  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-22 09:42:55.687  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2017-05-22 09:42:55.690  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.3.RELEASE)
+
+2017-05-23 14:58:44.921  INFO 7338 --- [           main] hello.Application                        : Starting Application v0.1.0 on lp00001 with PID 7338 (/home/carbond/projects/hello-world/target/gs-spring-boot-0.1.0.jar started by carbond in /home/carbond/projects/hello-world)
+2017-05-23 14:58:44.924  INFO 7338 --- [           main] hello.Application                        : No active profile set, falling back to default profiles: default
+2017-05-23 14:58:45.013  INFO 7338 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5b37e0d2: startup date [Tue May 23 14:58:45 BST 2017]; root of context hierarchy
+2017-05-23 14:58:46.800  INFO 7338 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-05-23 14:58:46.821  INFO 7338 --- [           main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-23 14:58:46.822  INFO 7338 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-05-23 14:58:46.925  INFO 7338 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-05-23 14:58:46.925  INFO 7338 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1918 ms
+2017-05-23 14:58:47.168  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-05-23 14:58:47.172  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'metricsFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2017-05-23 14:58:47.173  INFO 7338 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2017-05-23 14:58:47.503  INFO 7338 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5b37e0d2: startup date [Tue May 23 14:58:45 BST 2017]; root of context hierarchy
+2017-05-23 14:58:47.592  INFO 7338 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/]}" onto public java.lang.String hello.HelloController.index()
+2017-05-23 14:58:47.597  INFO 7338 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-05-23 14:58:47.597  INFO 7338 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-05-23 14:58:47.641  INFO 7338 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-23 14:58:47.642  INFO 7338 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-23 14:58:47.689  INFO 7338 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-05-23 14:58:47.990  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.991  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.992  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
+2017-05-23 14:58:47.993  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2017-05-23 14:58:47.993  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.994  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.995  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2017-05-23 14:58:47.996  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.998  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:47.999  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
+2017-05-23 14:58:48.041  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
+2017-05-23 14:58:48.043  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:48.043  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:48.045  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
+2017-05-23 14:58:48.046  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
+2017-05-23 14:58:48.046  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:48.047  INFO 7338 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2017-05-23 14:58:48.169  INFO 7338 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-05-23 14:58:48.181  INFO 7338 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2017-05-23 14:58:48.311  INFO 7338 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+Let's inspect the beans provided by Spring Boot:
+actuatorMetricReader
+application
+applicationContextIdFilter
+auditEventMvcEndpoint
+auditEventRepository
+auditEventsEndpoint
+auditListener
+autoConfigurationReportEndpoint
+basicErrorController
+beanNameHandlerMapping
+beanNameViewResolver
+beansEndpoint
+characterEncodingFilter
+commandLineRunner
+configurationPropertiesReportEndpoint
+conventionErrorViewResolver
+counterBuffers
+counterService
+defaultServletHandlerMapping
+defaultValidator
+defaultViewResolver
+diskSpaceHealthIndicator
+diskSpaceHealthIndicatorProperties
+dispatcherServlet
+dispatcherServletRegistration
+dumpEndpoint
+duplicateServerPropertiesDetector
+embeddedServletContainerCustomizerBeanPostProcessor
+endpointHandlerMapping
+endpointMBeanExporter
+endpoints-org.springframework.boot.actuate.endpoint.EndpointProperties
+endpoints.cors-org.springframework.boot.actuate.autoconfigure.EndpointCorsProperties
+endpoints.health-org.springframework.boot.actuate.autoconfigure.HealthMvcEndpointProperties
+endpoints.jmx-org.springframework.boot.actuate.autoconfigure.EndpointMBeanExportProperties
+endpoints.metrics.filter-org.springframework.boot.actuate.autoconfigure.MetricFilterProperties
+envInfoContributor
+environmentEndpoint
+environmentMvcEndpoint
+error
+errorAttributes
+errorPageCustomizer
+errorPageRegistrarBeanPostProcessor
+faviconHandlerMapping
+faviconRequestHandler
+gaugeBuffers
+gaugeService
+handlerExceptionResolver
+healthAggregator
+healthEndpoint
+healthMvcEndpoint
+heapdumpMvcEndpoint
+helloController
+hiddenHttpMethodFilter
+httpPutFormContentFilter
+httpRequestHandlerAdapter
+infoEndpoint
+jacksonObjectMapper
+jacksonObjectMapperBuilder
+jsonComponentModule
+localeCharsetMappingsCustomizer
+loggersEndpoint
+loggersMvcEndpoint
+management.health.status-org.springframework.boot.actuate.autoconfigure.HealthIndicatorProperties
+management.info-org.springframework.boot.actuate.autoconfigure.InfoContributorProperties
+management.trace-org.springframework.boot.actuate.trace.TraceProperties
+managementContextResolver
+managementServerProperties
+managementServletContext
+mappingJackson2HttpMessageConverter
+mbeanExporter
+mbeanServer
+messageConverters
+methodValidationPostProcessor
+metricReaderPublicMetrics
+metricWritersMetricExporter
+metricsEndpoint
+metricsFilter
+metricsMvcEndpoint
+multipartConfigElement
+multipartResolver
+mvcContentNegotiationManager
+mvcConversionService
+mvcEndpoints
+mvcPathMatcher
+mvcResourceUrlProvider
+mvcUriComponentsContributor
+mvcUrlPathHelper
+mvcViewResolver
+objectNamingStrategy
+org.springframework.boot.actuate.autoconfigure.AuditAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.AuditAutoConfiguration$AuditEventRepositoryConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration$RequestMappingEndpointConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointMBeanExportAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration$ApplicationContextFilterConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration$EndpointWebMvcConfiguration
+org.springframework.boot.actuate.autoconfigure.EndpointWebMvcManagementContextConfiguration
+org.springframework.boot.actuate.autoconfigure.HealthIndicatorAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.HealthIndicatorAutoConfiguration$DiskSpaceHealthIndicatorConfiguration
+org.springframework.boot.actuate.autoconfigure.InfoContributorAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.ManagementServerPropertiesAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricExportAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricExportAutoConfiguration$MetricExportPropertiesConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricExportAutoConfiguration$StatsdConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration$FastMetricServicesConfiguration
+org.springframework.boot.actuate.autoconfigure.PublicMetricsAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.PublicMetricsAutoConfiguration$TomcatMetricsConfiguration
+org.springframework.boot.actuate.autoconfigure.TraceRepositoryAutoConfiguration
+org.springframework.boot.actuate.autoconfigure.TraceWebFilterAutoConfiguration
+org.springframework.boot.autoconfigure.AutoConfigurationPackages
+org.springframework.boot.autoconfigure.condition.BeanTypeRegistry
+org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration
+org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
+org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration
+org.springframework.boot.autoconfigure.internalCachingMetadataReaderFactory
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration
+org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration
+org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration
+org.springframework.boot.autoconfigure.validation.DefaultValidatorConfiguration
+org.springframework.boot.autoconfigure.validation.Jsr303ValidatorAdapterConfiguration
+org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
+org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration
+org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration$DispatcherServletConfiguration
+org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration$DispatcherServletRegistrationConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration
+org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration$EmbeddedTomcat
+org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration
+org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$DefaultErrorViewResolverConfiguration
+org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration
+org.springframework.boot.autoconfigure.web.HttpEncodingAutoConfiguration
+org.springframework.boot.autoconfigure.web.HttpMessageConvertersAutoConfiguration
+org.springframework.boot.autoconfigure.web.HttpMessageConvertersAutoConfiguration$StringHttpMessageConverterConfiguration
+org.springframework.boot.autoconfigure.web.JacksonHttpMessageConvertersConfiguration
+org.springframework.boot.autoconfigure.web.JacksonHttpMessageConvertersConfiguration$MappingJackson2HttpMessageConverterConfiguration
+org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration
+org.springframework.boot.autoconfigure.web.ServerPropertiesAutoConfiguration
+org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration
+org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration$RestTemplateConfiguration
+org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration
+org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$EnableWebMvcConfiguration
+org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter
+org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter$FaviconConfiguration
+org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration
+org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration$TomcatWebSocketConfiguration
+org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor
+org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.store
+org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+org.springframework.context.annotation.internalCommonAnnotationProcessor
+org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+org.springframework.context.annotation.internalRequiredAnnotationProcessor
+org.springframework.context.annotation.internalScheduledAnnotationProcessor
+org.springframework.context.event.internalEventListenerFactory
+org.springframework.context.event.internalEventListenerProcessor
+org.springframework.scheduling.annotation.SchedulingConfiguration
+preserveErrorControllerTargetClassPostProcessor
+propertySourcesPlaceholderConfigurer
+requestContextFilter
+requestMappingEndpoint
+requestMappingHandlerAdapter
+requestMappingHandlerMapping
+resourceHandlerMapping
+restTemplateBuilder
+serverProperties
+shutdownEndpoint
+simpleControllerHandlerAdapter
+spring.http.encoding-org.springframework.boot.autoconfigure.web.HttpEncodingProperties
+spring.http.multipart-org.springframework.boot.autoconfigure.web.MultipartProperties
+spring.info-org.springframework.boot.autoconfigure.info.ProjectInfoProperties
+spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties
+spring.metrics.export-org.springframework.boot.actuate.metrics.export.MetricExportProperties
+spring.mvc-org.springframework.boot.autoconfigure.web.WebMvcProperties
+spring.resources-org.springframework.boot.autoconfigure.web.ResourceProperties
+standardJacksonObjectMapperBuilderCustomizer
+stringHttpMessageConverter
+systemPublicMetrics
+tomcatEmbeddedServletContainerFactory
+tomcatPublicMetrics
+traceEndpoint
+traceRepository
+viewControllerHandlerMapping
+viewResolver
+webRequestLoggingFilter
+websocketContainerCustomizer
+welcomePageHandlerMapping
+2017-05-23 14:58:48.333  INFO 7338 --- [           main] hello.Application                        : Started Application in 3.842 seconds (JVM running for 4.33)
+
+2017-05-24 17:12:50.577  INFO [hello-world,,,] 9806 --- [           main] hello.Application                        : Started Application in 9.539 seconds (JVM running for 10.264)
+2017-05-24 17:12:52.578  INFO [hello-world,,,] 9806 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-05-24 17:12:52.578  INFO [hello-world,,,] 9806 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-05-24 17:12:52.647  INFO [hello-world,,,] 9806 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 69 ms
+2017-05-24 17:12:52.706  INFO [hello-world,213f36eeaf42ae0c,213f36eeaf42ae0c,false] 9806 --- [nio-8080-exec-1] hello.HelloController                    : Ohai!
+2017-05-24 17:12:54.772  INFO [hello-world,8f84254106490de0,8f84254106490de0,false] 9806 --- [nio-8080-exec-2] hello.HelloController                    : Ohai!
+2017-05-24 17:12:56.825  INFO [hello-world,ba4ae0033e4d32b6,ba4ae0033e4d32b6,false] 9806 --- [nio-8080-exec-4] hello.HelloController                    : Ohai!
+2017-05-24 17:12:58.880  INFO [hello-world,ce517efbba11de16,ce517efbba11de16,false] 9806 --- [nio-8080-exec-5] hello.HelloController                    : Ohai!
+2017-05-24 17:13:00.922  INFO [hello-world,87ace726dada7f9a,87ace726dada7f9a,false] 9806 --- [nio-8080-exec-3] hello.HelloController                    : Ohai!
+2017-05-24 17:13:02.952  INFO [hello-world,46b5e2c333f616a8,46b5e2c333f616a8,false] 9806 --- [nio-8080-exec-6] hello.HelloController                    : Ohai!
+2017-05-24 17:13:04.993  INFO [hello-world,2a74296d3712f830,2a74296d3712f830,false] 9806 --- [nio-8080-exec-7] hello.HelloController                    : Ohai!
+2017-05-24 17:13:07.046  INFO [hello-world,97722fd5ecc09fce,97722fd5ecc09fce,false] 9806 --- [nio-8080-exec-8] hello.HelloController                    : Ohai!
+2017-05-24 17:13:09.100  INFO [hello-world,74b628a17c2578bb,74b628a17c2578bb,false] 9806 --- [nio-8080-exec-9] hello.HelloController                    : Ohai!
+2017-05-24 17:13:11.138  INFO [hello-world,78481c580d93f26d,78481c580d93f26d,false] 9806 --- [nio-8080-exec-1] hello.HelloController                    : Ohai!
+2017-05-24 17:13:13.173  INFO [hello-world,94dd74ac0d8a0ddf,94dd74ac0d8a0ddf,false] 9806 --- [nio-8080-exec-4] hello.HelloController                    : Ohai!
+2017-05-24 17:13:15.205  INFO [hello-world,62c1575308f32bce,62c1575308f32bce,false] 9806 --- [nio-8080-exec-5] hello.HelloController                    : Ohai!
+2017-05-24 17:13:17.248  INFO [hello-world,a82ac73c9c001176,a82ac73c9c001176,false] 9806 --- [nio-8080-exec-3] hello.HelloController                    : Ohai!
+2017-05-24 17:13:19.278  INFO [hello-world,61b846ff319c2890,61b846ff319c2890,false] 9806 --- [nio-8080-exec-6] hello.HelloController                    : Ohai!
+2017-05-24 17:13:21.312  INFO [hello-world,5ab9b5a53590c0a3,5ab9b5a53590c0a3,false] 9806 --- [nio-8080-exec-7] hello.HelloController                    : Ohai!
+^C2017-05-24 17:13:22.743  INFO [hello-world,,,] 9806 --- [       Thread-6] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32d992b2: startup date [Wed May 24 17:12:43 BST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@64a294a6
+2017-05-24 17:13:22.747  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
+2017-05-24 17:13:22.755  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2017-05-24 17:13:22.757  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
