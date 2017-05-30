@@ -272,7 +272,7 @@ welcomePageHandlerMapping
 2017-05-24 17:13:17.248  INFO [hello-world,a82ac73c9c001176,a82ac73c9c001176,false] 9806 --- [nio-8080-exec-3] hello.HelloController                    : Ohai!
 2017-05-24 17:13:19.278  INFO [hello-world,61b846ff319c2890,61b846ff319c2890,false] 9806 --- [nio-8080-exec-6] hello.HelloController                    : Ohai!
 2017-05-24 17:13:21.312  INFO [hello-world,5ab9b5a53590c0a3,5ab9b5a53590c0a3,false] 9806 --- [nio-8080-exec-7] hello.HelloController                    : Ohai!
-^C2017-05-24 17:13:22.743  INFO [hello-world,,,] 9806 --- [       Thread-6] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32d992b2: startup date [Wed May 24 17:12:43 BST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@64a294a6
+2017-05-24 17:13:22.743  INFO [hello-world,,,] 9806 --- [       Thread-6] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@32d992b2: startup date [Wed May 24 17:12:43 BST 2017]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@64a294a6
 2017-05-24 17:13:22.747  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 0
 2017-05-24 17:13:22.755  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
 2017-05-24 17:13:22.757  INFO [hello-world,,,] 9806 --- [       Thread-6] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
