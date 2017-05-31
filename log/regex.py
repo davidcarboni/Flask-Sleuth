@@ -1,4 +1,4 @@
-"""Regular expressions defining a common logging standard
+"""Regular expressions defining a common logging standard.
 
  This file contains regex values and parsing code that define a logging standard which all components should meet,
  independent of implementation technology.

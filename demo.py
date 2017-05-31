@@ -12,7 +12,6 @@ from log import log, regex
 
 
 def demo():
-
     # Test out with the lines from tests/spring-boot.log
     # There's an equivalent Python log in tests/python.log to prove the reverse process.
     lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
