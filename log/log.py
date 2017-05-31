@@ -1,151 +1,87 @@
 import os
 from threading import current_thread
-import datetime
 import logging
-import json
-import regex
-from datetime import datetime
+from log import regex
+
+# Set up the log format
+
+LOG_FORMAT = '%(asctime)s %(levelname)+5s %(transaction_detail)s' \
+         '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
+logging.basicConfig(format=LOG_FORMAT)
 
 
-# Example Spring Boot log line:
-# 2017-05-22 09:42:55.680  INFO
-# 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
-
-# Example log line with added Spring Cloud Sleuth:
-# 2017-05-22 09:42:55.680  INFO [hello-world,a82ac73c9c001176,a82ac73c9c001176,false]
-# 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
-
-
-def error(logger_name, message, transaction=None):
-    # Log an error message
-    extra = _log_info(logger_name, transaction)
-    logging.getLogger(logger_name).error(message, extra=extra)
+def _exported(transaction_id, exported):
+    """ Works out the correct value for the "exported" field of the transaction information.
+    NB it's only populated if there's a transaction ID.
+    """
+    if transaction_id:
+        # Ensure if the string "false" is passed in we return "false"
+        if exported and exported != "false":
+            return "true"
+        else:
+            return "false"
+    return ""
 
 
-def warn(log_level, logger_name, log_message, transaction=None):
-    # Log a warning message
-    _log(log_level, logger_name, log_message, "WARN", transaction)
-
-
-def info(log_level, logger_name, log_message, transaction=None):
-    # Log an information message
-    _log(log_level, logger_name, log_message, "INFO", transaction)
-
-
-def debug(log_level, logger_name, log_message, transaction=None):
-    # Log a debug message
-    _log(log_level, logger_name, log_message, "DEBUG", transaction)
-
-
-def trace(log_level, logger_name, log_message, transaction=None):
-    # Log a trace message
-    _log(log_level, logger_name, log_message, "TRACE", transaction)
-
-
-def transaction_info(app_name=None, transaction_id=None, transaction_span=None, exported=False):
-    """ Constructs a dict of transaction information.
+def _transaction_info(transaction):
+    """ Constructs a dict from the given transaction information.
     The defaults for Spring appear to be:
      * If spring.app.name is missing, " - " is used
      * If there's a transaction ID, but no span ID, the span ID is the same as the transaction ID
      * Exported defaults to false
+    The keys expected in the input dict are app_name, transaction_id, transaction_span and exported.
     """
-    # Work out a value for the "exported" field
-    # It's only populated if there's a transaction ID
-    exported_string = None
-    if transaction_id:
-        exported_string = "true" if exported and exported != "false" else "false"
+
+    if transaction:
+
+        # Get raw values
+        app_name = transaction.get("app")
+        transaction_id = transaction.get("id")
+        transaction_span = transaction.get("span")
+        exported = transaction.get("exported")
+
+        # Adjust as needed
+        return {
+            'app': app_name if app_name else " - ",
+            'id': transaction_id,
+            'span': transaction_span if transaction_span else transaction_id,
+            'exported': _exported(transaction_id, exported)
+        }
+
+
+def _standard_info(logger=None):
+    """ Constructs a dict of standard log information.
+    This includes:
+     * Process ID
+     * Thread name
+     * Logger name (if no logger is provided, this defaults to __name__)
+    """
 
     return {
-        'app': app_name if app_name else " - ",
-        'id': transaction_id,
-        'span': transaction_span if transaction_span else transaction_id,
-        'exported': exported_string
+        'process_id': str(os.getpid()),
+        'thread_name': current_thread().getName(),
+        'logger_name': logger.name if logger else __name__
     }
 
 
-def extra(logger, transaction=None):
-    """Generates log values needed to match Spring Boot / Sleuth.
-    the logger name defaults to """
-    values = {}
-    # Truncate date-time to milliseconds to match Spring Boot format
-    # values['date_time'] = datetime.datetime.now().isoformat(' ', 'milliseconds')
-    values['millisecond'] = str(datetime.now().microsecond)[0:3]
-    values['process_id'] = str(os.getpid())
-    values['thread_name'] = current_thread().getName()
-    values['logger_name'] = logger.name
+def extra(logger=None, transaction=None):
+    """Generates log values needed to match the logging standard.
+    the logger name defaults to __name__ """
+    info = _standard_info(logger)
+    transaction_detail = _transaction_info(transaction)
 
     # Add transaction information, if present
-    if transaction:
-        transaction_fields = []
+    if transaction_detail:
+        transaction_info = []
         for key in ("app", "id", "span", "exported"):
-            if key in transaction and transaction[key]:
-                transaction_fields.append(transaction[key])
+            value = transaction_detail.get(key)
+            if value:
+                transaction_info.append(value)
             else:
-                transaction_fields.append("")
-        values['transaction_detail'] = "[" + ",".join(transaction_fields) + "] "
+                transaction_info.append("")
+        info['transaction_detail'] = "[" + ",".join(transaction_info) + "] "
     else:
-        values['transaction_detail'] = ""
+        info['transaction_detail'] = ""
 
-    return values
+    return info
 
-
-# Example Spring Boot log line:
-# 2017-05-22 09:42:55.680  INFO
-# 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
-
-# Example log line with added Spring Cloud Sleuth:
-# 2017-05-22 09:42:55.680  INFO [hello-world,a82ac73c9c001176,a82ac73c9c001176,false]
-# 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
-
-# FORMAT = '%(asctime)s.%(millisecond)s %(levelname)+5s %(transaction_detail)s' \
-#          '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
-FORMAT = '%(asctime)s %(levelname)+5s %(transaction_detail)s' \
-         '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
-
-# logging.basicConfig(format=FORMAT, level=logging.DEBUG, datefmt='%Y-%m-%d %H:%M:%S')
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
-
-
-def foo():
-    # Test out with a few lines in spring-boot.log
-    lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
-    for line in lines:
-        values = regex.parse(line)
-        if values:
-            print()
-            # print("Log line values: " + json.dumps(values))
-            # print("---")
-            print(line[:170] + "...")
-
-            transaction = None
-            if "transaction" in values:
-                tx = values["transaction"]
-                transaction = transaction_info(tx["app"], tx["id"], tx["span"], tx["exported"])
-            logger = logging.getLogger(values["logger_name"])
-            fh = logging.FileHandler('tests/python.log')
-            logger.addHandler(fh)
-            extra_info = extra(logger, transaction)
-            level = values["log_level"]
-            if level == "ERROR":
-                logger.error(values["log_message"], extra=extra_info)
-            elif level == "WARN":
-                logger.warning(values["log_message"], extra=extra_info)
-            elif level == "INFO":
-                logger.info(values["log_message"], extra=extra_info)
-            elif level == "DEBUG":
-                logger.debug(values["log_message"], extra=extra_info)
-
-#           ERROR, WARN, INFO, DEBUG or TRACE
-# critical, error, warn, info, debug
-
-                # reconstructed = message(values['log_level'], values['logger_name'], values['log_message'])
-                # print("Reconstructed : " + reconstructed[:170] + "...")
-
-        else:
-            print("Failed to match log line: " + str(line))
-
-
-print(extra)
-
-
-foo()
