@@ -6,7 +6,7 @@ from log import regex
 # Set up the log format
 
 LOG_FORMAT = '%(asctime)s %(levelname)+5s %(transaction_detail)s' \
-         '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
+             '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
 logging.basicConfig(format=LOG_FORMAT)
 
 
@@ -33,7 +33,6 @@ def _transaction_info(transaction):
     """
 
     if transaction:
-
         # Get raw values
         app_name = transaction.get("app")
         transaction_id = transaction.get("id")
@@ -59,8 +58,8 @@ def _standard_info(logger=None):
 
     return {
         'process_id': str(os.getpid()),
-        'thread_name': current_thread().getName(),
-        'logger_name': logger.name if logger else __name__
+        'thread_name': (current_thread().getName())[:15],
+        'logger_name': (logger.name if logger else __name__)[:40]
     }
 
 
@@ -84,4 +83,3 @@ def extra(logger=None, transaction=None):
         info['transaction_detail'] = ""
 
     return info
-
