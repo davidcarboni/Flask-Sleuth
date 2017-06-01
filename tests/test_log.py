@@ -4,8 +4,8 @@ import re
 
 import unittest
 
-class TestStringMethods(unittest.TestCase):
 
+class TestStringMethods(unittest.TestCase):
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
 
@@ -20,9 +20,9 @@ class TestStringMethods(unittest.TestCase):
         with self.assertRaises(TypeError):
             s.split(2)
 
+
 if __name__ == '__main__':
     unittest.main()
-
 
 # Example Spring Boot log line:
 # 2017-05-22 09:42:55.680  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
@@ -98,15 +98,16 @@ def message(log_level, logger_name, log_message):
 
 
 if __name__ == '__main__':
-    f = open('tests/log.txt')
+    f = open('tests/spring-boot.log')
     s = f.read()
     print(s)
     matches = match(s)
     print(matches.group(0))
 
+
 def foo():
-    # Test out with a few lines in log.txt
-    lines = [line.rstrip('\n') for line in open('tests/log.txt')]
+    # Test out with a few lines in spring-boot.log
+    lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
     for line in lines:
         matches = match(line)
         if matches:
