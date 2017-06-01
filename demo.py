@@ -29,14 +29,15 @@ def demo():
             # extra = log.extra(logger, transaction)
             extra = log.extra(logger, values.get("transaction"))
             level = values.get("log_level")
+            message = values["log_message"]
             if level == "ERROR":
-                logger.error(values["log_message"], extra=extra)
+                logger.error(message, extra=extra)
             elif level == "WARN":
-                logger.warning(values["log_message"], extra=extra)
+                logger.warning(message, extra=extra)
             elif level == "INFO":
-                logger.info(values["log_message"], extra=extra)
+                logger.info(message, extra=extra)
             elif level == "DEBUG":
-                logger.debug(values["log_message"], extra=extra)
+                logger.debug(message, extra=extra)
 
             print("---")
 
