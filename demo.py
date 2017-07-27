@@ -56,14 +56,16 @@ def logging_demo():
     logger = logging.getLogger("demo_logger")
     logger.setLevel(logging.DEBUG)
 
-    logger.debug("Logging without tracing information", extra=log.extra(logger))
+    # No B3 tracing information collected
+    logger.debug("Logging without tracing information")
+
+    # With B3 tracing information collected
     b3.collect_incoming_headers({})
-    logger.debug("Logging with added tracing information", extra=log.extra(logger))
+    logger.debug("Logging with added tracing information")
 
 
 if __name__ == '__main__':
     app = Flask("myapp")
-    app.before_request_funcs
     log.init(app)
     with app.app_context():
         logging_demo()

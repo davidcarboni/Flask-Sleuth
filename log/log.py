@@ -13,6 +13,7 @@ _app_name = "Please call init(app)"
 
 
 def _tracing_information(app_name):
+    """Gets B3 distributed tracing information, if available, in Spring Cloud Sleuth compatible format."""
 
     # We'll collate trace information if the B3 headers have been collected:
     values = b3.values()
@@ -31,31 +32,34 @@ def _tracing_information(app_name):
 
     return []
 
+# Update the logging record factory:
 
-def extra(logger, app_name=None):
-    """Generates log values needed to match the logging standard.
+record_factory = logging.getLogRecordFactory()
 
-    This should you to call logging as follows:
 
-     * logger.debug("Ohai Mr Lolcat", extra=extra(logger))
+def spring_factory(*args, **kwargs):
+    """Collates values needed by LOG_FORMAT to implement the logging standard.
 
-    :param logger: The logger you're using to generate a message. This is used for the logger name.
-    :param app_name: This is optional. It should normally be set once at startup by calling init(app)
-    :return: A dict of the values required by LOG_FORMAT.
+    :return: A log record augmented with the values required by LOG_FORMAT:
+     * process_id
+     * thread_name
+     * logger_name
+     * tracing_information (if B3 values have not been collected this will be an empty string)
     """
-    values = {
-        'process_id': str(os.getpid()),
-        'thread_name': (current_thread().getName())[:15],
-        'logger_name': logger.name[:40],
-        'tracing_information': '',
-    }
+    record = record_factory(*args, **kwargs)
 
-    # Add transaction information, if present
-    tracing_information = _tracing_information(app_name or _app_name)
+    record.process_id = str(os.getpid())
+    record.thread_name = (current_thread().getName())[:15]
+    record.logger_name = record.name[:40]
+    record.tracing_information = ""
+    tracing_information = _tracing_information(_app_name)
     if tracing_information:
-        values['tracing_information'] = "[" + ",".join(tracing_information) + "] "
+        record.tracing_information = "[" + ",".join(tracing_information) + "] "
 
-    return values
+    return record
+
+
+logging.setLogRecordFactory(spring_factory)
 
 
 def init(app):
