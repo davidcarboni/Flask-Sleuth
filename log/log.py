@@ -48,9 +48,12 @@ def spring_factory(*args, **kwargs):
     """
     record = record_factory(*args, **kwargs)
 
+    # Standard information
     record.process_id = str(os.getpid())
     record.thread_name = (current_thread().getName())[:15]
     record.logger_name = record.name[:40]
+
+    # Optional distributed tracing information
     record.tracing_information = ""
     tracing_information = _tracing_information(_app_name)
     if tracing_information:
