@@ -1,85 +1,64 @@
 import os
 from threading import current_thread
 import logging
-from log import regex
+from flaskb3 import b3
+from flask import Flask
 
 # Set up the log format
 
-LOG_FORMAT = '%(asctime)s %(levelname)+5s %(transaction_detail)s' \
+LOG_FORMAT = '%(asctime)s %(levelname)+5s %(tracing_information)s' \
              '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
 logging.basicConfig(format=LOG_FORMAT)
+_app_name = "Please call init(app)"
 
 
-def _exported(transaction_id, exported):
-    """ Works out the correct value for the "exported" field of the transaction information.
-    NB it's only populated if there's a transaction ID.
+def _tracing_information(app_name):
+
+    # We'll collate trace information if the B3 headers have been collected:
+    values = b3.values()
+    if values[b3.b3_trace_id]:
+
+        # Trace information would normally be sent to Zipkin if either of sampled or debug ("flags") is set to 1
+        # However we're not currently using Zipkin, so it's always false
+        # exported = "true" if values[b3.b3_sampled] == '1' or values[b3.b3_flags] == '1' else "false"
+
+        return [
+            app_name if app_name else " - ",
+            values[b3.b3_trace_id],
+            values[b3.b3_span_id],
+            "false",
+        ]
+
+    return []
+
+
+def extra(logger, app_name=None):
+    """Generates log values needed to match the logging standard.
+
+    This should you to call logging as follows:
+
+     * logger.debug("Ohai Mr Lolcat", extra=extra(logger))
+
+    :param logger: The logger you're using to generate a message. This is used for the logger name.
+    :param app_name: This is optional. It should normally be set once at startup by calling init(app)
+    :return: A dict of the values required by LOG_FORMAT.
     """
-    if transaction_id:
-        # Ensure if the string "false" is passed in we return "false"
-        if exported and exported != "false":
-            return "true"
-        else:
-            return "false"
-    return ""
-
-
-def _transaction_info(transaction):
-    """ Constructs a dict from the given transaction information.
-    The defaults for Spring appear to be:
-     * If spring.app.name is missing, " - " is used
-     * If there's a transaction ID, but no span ID, the span ID is the same as the transaction ID
-     * Exported defaults to false
-    The keys expected in the input dict are app_name, transaction_id, transaction_span and exported.
-    """
-
-    if transaction:
-        # Get raw values
-        app_name = transaction.get("app")
-        transaction_id = transaction.get("id")
-        transaction_span = transaction.get("span")
-        exported = transaction.get("exported")
-
-        # Adjust as needed
-        return {
-            'app': app_name if app_name else " - ",
-            'id': transaction_id,
-            'span': transaction_span if transaction_span else transaction_id,
-            'exported': _exported(transaction_id, exported)
-        }
-
-
-def _standard_info(logger=None):
-    """ Constructs a dict of standard log information.
-    This includes:
-     * Process ID
-     * Thread name
-     * Logger name (if no logger is provided, this defaults to __name__)
-    """
-
-    return {
+    values = {
         'process_id': str(os.getpid()),
         'thread_name': (current_thread().getName())[:15],
-        'logger_name': (logger.name if logger else __name__)[:40]
+        'logger_name': logger.name[:40],
+        'tracing_information': '',
     }
 
-
-def extra(logger=None, transaction=None):
-    """Generates log values needed to match the logging standard.
-    the logger name defaults to __name__ """
-    info = _standard_info(logger)
-    transaction_detail = _transaction_info(transaction)
-
     # Add transaction information, if present
-    if transaction_detail:
-        transaction_info = []
-        for key in ("app", "id", "span", "exported"):
-            value = transaction_detail.get(key)
-            if value:
-                transaction_info.append(value)
-            else:
-                transaction_info.append("")
-        info['transaction_detail'] = "[" + ",".join(transaction_info) + "] "
-    else:
-        info['transaction_detail'] = ""
+    tracing_information = _tracing_information(app_name or _app_name)
+    if tracing_information:
+        values['tracing_information'] = "[" + ",".join(tracing_information) + "] "
 
-    return info
+    return values
+
+
+def init(app):
+    """Initialises logging with the name of the app"""
+    global _app_name
+    _app_name = app.name

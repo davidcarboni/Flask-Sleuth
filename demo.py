@@ -8,10 +8,12 @@ timestamps, process IDs and thread names will (correctly) differ.
 
 """
 import logging
+from flask import Flask, g
 from log import log, regex
+from flaskb3 import b3
 
 
-def demo():
+def parsing_demo():
     # Test out with the lines from tests/spring-boot.log
     # There's an equivalent Python log in tests/python.log to prove the reverse process.
     lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
@@ -26,8 +28,16 @@ def demo():
             print(line)
             logger = logging.getLogger(values.get("logger_name"))
             logger.setLevel(logging.DEBUG)
-            # extra = log.extra(logger, transaction)
-            extra = log.extra(logger, values.get("transaction"))
+
+            if values.get("transaction"):
+                tracing_info = values["transaction"]
+                log._app_name = tracing_info["app"]
+                setattr(g, b3.b3_trace_id, tracing_info["id"])
+                setattr(g, b3.b3_span_id, tracing_info["span"])
+                if tracing_info["exported"] == "true":
+                    setattr(g, b3.b3_sampled, "1")
+
+            extra = log.extra(logger)
             level = values.get("log_level")
             message = values["log_message"]
             if level == "ERROR":
@@ -42,5 +52,19 @@ def demo():
             print("---")
 
 
+def logging_demo():
+    logger = logging.getLogger("demo_logger")
+    logger.setLevel(logging.DEBUG)
+
+    logger.debug("Logging without tracing information", extra=log.extra(logger))
+    b3.collect_incoming_headers({})
+    logger.debug("Logging with added tracing information", extra=log.extra(logger))
+
+
 if __name__ == '__main__':
-    demo()
+    app = Flask("myapp")
+    app.before_request_funcs
+    log.init(app)
+    with app.app_context():
+        logging_demo()
+        # parsing_demo()
