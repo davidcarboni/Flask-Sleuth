@@ -2,7 +2,6 @@ import os
 from threading import current_thread
 import logging
 from flaskb3 import b3
-from flask import Flask
 
 # Set up the log format
 
