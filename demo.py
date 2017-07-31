@@ -61,7 +61,7 @@ def logging_demo():
 
     # With B3 tracing information collected
     b3.collect_incoming_headers({})
-    logger.debug("Logging with added tracing information")
+    logger.warning("Logging with added tracing information")
 
 
 if __name__ == '__main__':
