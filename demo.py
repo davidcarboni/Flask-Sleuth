@@ -7,10 +7,21 @@ NB the example Spring Boot lines come from a file and are re-logged through the 
 timestamps, process IDs and thread names will (correctly) differ.
 
 """
+from log import log, regex
+import os
 import logging
 from flask import Flask, g
-from log import log, regex
 from flaskb3 import b3
+
+# Logging
+
+debug = bool(1)
+# os.getenv("FLASK_DEBUG"))
+level = logging.DEBUG if debug else logging.WARNING
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+# logger.warning("Level=" + logging.getLevelName(level))
+# logger.warning("Level=" + logging.getLevelName(logger.level))
 
 
 def parsing_demo():
@@ -70,3 +81,18 @@ if __name__ == '__main__':
     with app.app_context():
         logging_demo()
         # parsing_demo()
+
+    # Port
+
+    port = os.getenv("PORT", "5000")
+    logger.info("PORT is " + str(port))
+    logger.info("FLASK_DEBUG is " + str(debug))
+
+    # Go!
+
+    app.run(
+        host="0.0.0.0",
+        port=int(port),
+        debug=debug,
+        threaded=True
+    )

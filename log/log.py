@@ -7,7 +7,7 @@ _app_name = None
 _record_factory = logging.getLogRecordFactory()
 
 
-def init(app):
+def init(app, level=None):
     """Initialises logging with the name of the app and wraps the existing record factory."""
 
     global _app_name
@@ -16,7 +16,7 @@ def init(app):
     # Set up the log format
     log_format = '%(asctime)s %(levelname_spring)+5s %(tracing_information)s' \
                  '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
-    logging.basicConfig(format=log_format)
+    logging.basicConfig(format=log_format, level=level)
 
     # Wrap the existing record factory
     logging.setLogRecordFactory(spring_record_factory)
