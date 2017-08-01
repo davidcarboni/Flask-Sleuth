@@ -19,10 +19,10 @@ def init(app, level=None):
     logging.basicConfig(format=log_format, level=level)
 
     # Wrap the existing record factory
-    logging.setLogRecordFactory(spring_record_factory)
+    logging.setLogRecordFactory(record_factory)
 
 
-def spring_record_factory(*args, **kwargs):
+def record_factory(*args, **kwargs):
     """Collates values needed by LOG_FORMAT to implement the logging standard.
 
     :return: A log record augmented with the values required by LOG_FORMAT:
