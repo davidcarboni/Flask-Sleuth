@@ -4,7 +4,7 @@ import logging
 from flaskb3 import b3
 
 _app_name = None
-_record_factory = logging.getLogRecordFactory()
+_python_record_factory = logging.getLogRecordFactory()
 
 
 def init(app, level=None):
@@ -19,10 +19,10 @@ def init(app, level=None):
     logging.basicConfig(format=log_format, level=level)
 
     # Wrap the existing record factory
-    logging.setLogRecordFactory(record_factory)
+    logging.setLogRecordFactory(_record_factory)
 
 
-def record_factory(*args, **kwargs):
+def _record_factory(*args, **kwargs):
     """Collates values needed by LOG_FORMAT to implement the logging standard.
 
     :return: A log record augmented with the values required by LOG_FORMAT:
@@ -31,7 +31,7 @@ def record_factory(*args, **kwargs):
      * logger_name
      * tracing_information (if B3 values have not been collected this will be an empty string)
     """
-    record = _record_factory(*args, **kwargs)
+    record = _python_record_factory(*args, **kwargs)
 
     # Standard fields
     record.levelname_spring = "WARN" if record.levelname == "WARNING" else record.levelname
