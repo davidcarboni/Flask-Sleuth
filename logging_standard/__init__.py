@@ -1,10 +1,20 @@
 import os
 from threading import current_thread
 import logging
-from flaskb3 import b3
+from logging import Formatter
+import b3
 
 _app_name = None
-_python_record_factory = logging.getLogRecordFactory()
+
+_python_record_factory = None
+if hasattr(logging, "getLogRecordFactory"):
+    # getLogRecordFactory was introduced in Python 3
+    logging.getLogRecordFactory()
+else:
+    # Python 2 fallback
+    # # set the formatter for all handlers on the root logger.
+    for handler in logging.getLogger().handlers:
+        handler.setFormatter(Formatter())
 
 
 def init(app, level=None):
@@ -19,7 +29,8 @@ def init(app, level=None):
     logging.basicConfig(format=log_format, level=level)
 
     # Wrap the existing record factory
-    logging.setLogRecordFactory(_record_factory)
+    if _python_record_factory:
+        logging.setLogRecordFactory(_record_factory)
 
 
 def _record_factory(*args, **kwargs):
@@ -64,3 +75,20 @@ def _tracing_information():
             values[b3.b3_span_id],
             "false",
         ]
+
+
+class Python2Formatter(Formatter):
+    def __init__(self, task_name=None):
+        self.task_name = task_name
+
+        super(Formatter, self).__init__()
+
+    def format(self, record):
+        data = {'@message': record.msg,
+                '@timestamp': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+                '@type': 'IronWorker'}
+
+        if self.task_name:
+            data['@task_name'] = self.task_name
+
+        return json.dumps(data)
