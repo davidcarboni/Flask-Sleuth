@@ -11,7 +11,7 @@ from regex import regex
 import logging
 import logging_standard
 from flask import Flask, g
-from flaskb3 import b3
+import b3
 
 app = Flask("myapp")
 
@@ -62,8 +62,9 @@ def logging_demo():
     logger.debug("Logging without tracing information")
 
     # With B3 tracing information collected
-    b3.collect_incoming_headers({})
+    b3.start_span()
     logger.warning("Logging with added tracing information")
+    b3.end_span()
 
 
 if __name__ == '__main__':
