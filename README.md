@@ -19,7 +19,8 @@ code in order to log tracing information.
 ## Usage
 
 Careful design has gone in to making this code as simple as possible to use.
-Once imported and initialised, you should be able to use standard Python logging:
+To add this to your project, you'll need to copy `logging_standard/__init__.py` and `b3/__init__.py`.
+Once imported and initialised, you should be able to use completely standard Python logging:
 
     import logging
     import logging_standard
@@ -30,10 +31,10 @@ Once imported and initialised, you should be able to use standard Python logging
 That should be all you need.
 NB the `init` function calls `logging.basicConfig`. 
 The `basicConfig` function does nothing if the logging system is already initialised
-so you'll want to ensure you call `logging_standard.init(app)` 
-before you make any other logging calls, otherwise the log format won't actually be initialised.
+so you'll need to ensure you call `logging_standard.init(app)` 
+before you make any other logging calls, otherwise the log format won't actually be applied.
 
-Run `demo.py` to see logging in action. Here are the two intended use cases:
+You can run `demo.py` to see logging in action, or here are the two intended use cases:
 
 ### Basic Spring Boot format
 
@@ -43,14 +44,13 @@ Run `demo.py` to see logging in action. Here are the two intended use cases:
 
 ### With B3 tracing information (Spring Cloud Sleuth format)
 
-    # Without B3 tracing information
     logger = logging.getLogger("demo_logger")
     logger.setLevel(logging.DEBUG)
     b3.start_span()
     logger.debug("Logging with added tracing information")
     b3.end_span()
 
-NB Actually you'll probably want to call `start_span()` and `end_span()`
+NB You'll most likely want to call `start_span()` and `end_span()`
 using `Flask.before_request()` and `Flask.after_request()`.
-See the [flask_b3 README.md](https://gitlab.ros.gov.uk/CarbonD/flask_b3/blob/master/README.md)
-for more detail.
+See the [flask_b3 README](https://gitlab.ros.gov.uk/CarbonD/flask_b3/blob/master/README.md)
+for details.
