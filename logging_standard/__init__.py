@@ -11,10 +11,16 @@ _python_record_factory = None
 _app_name = sys.argv[0]
 
 
-def init(app):
-    """Initialises logging with the name of the app."""
+def init(app, level=None):
+    """Initialises logging.
+
+     This sets the name of the app and, if `level` is passed in,
+     Sets the logging level of the root logger.
+     """
     global _app_name
     _app_name = app.name
+    if level:
+        logging.getLogger().setLevel(level)
 
 
 def _python3_record_factory(*args, **kwargs):
@@ -36,6 +42,7 @@ class Python2Formatter(Formatter):
 
     Formats a log record with the values required by LOG_FORMAT, as added by `_update_record(...)`
     """
+
     def __init__(self):
         super(self.__class__, self).__init__(fmt=_log_format)
 
@@ -94,7 +101,7 @@ def _tracing_information():
 logging.basicConfig(format=_log_format)
 
 if hasattr(logging, "getLogRecordFactory"):
-    # Python 3
+    # Python 3 solution
     # getLogRecordFactory was introduced in Python 3
     _python_record_factory = logging.getLogRecordFactory()
     logging.setLogRecordFactory(_python3_record_factory)
