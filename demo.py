@@ -9,7 +9,7 @@ timestamps, process IDs and thread names will (correctly) differ.
 """
 from regex import regex
 import logging
-import logging_standard
+import flask_logging
 from flask import Flask, g
 import b3
 
@@ -34,7 +34,6 @@ def parsing_demo():
 
             if values.get("transaction"):
                 tracing_info = values["transaction"]
-                logging_standard._app_name = tracing_info["app"]
                 setattr(g, b3.b3_trace_id, tracing_info["id"])
                 setattr(g, b3.b3_span_id, tracing_info["span"])
                 if tracing_info["exported"] == "true":
@@ -94,7 +93,6 @@ def subspan():
 
 
 if __name__ == '__main__':
-
     with app.app_context():
         logging_demo()
         # parsing_demo()
