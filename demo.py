@@ -68,14 +68,29 @@ def logging_demo():
 
 
 @app.route("/")
-def app_logging():
+def span_logging():
     log = logging.getLogger(app.name)
     log.setLevel(logging.DEBUG)
     log.debug("Debug")
     log.info("Info")
     log.warning("Warning")
     log.error("Error")
+    subspan()
     return "Hello, world!"
+
+
+@app.route("/subspan")
+def subspan():
+    log = logging.getLogger(app.name)
+    b3.start_subspan()
+    try:
+        log.debug("Subspan Debug")
+        log.info("Subspan Info")
+        log.warning("Subspan Warning")
+        log.error("Subspan Error")
+        return "Hello, subspan world!"
+    finally:
+        b3.end_subspan()
 
 
 if __name__ == '__main__':
