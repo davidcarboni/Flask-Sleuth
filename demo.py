@@ -67,6 +67,17 @@ def logging_demo():
     b3.end_span()
 
 
+@app.route("/")
+def app_logging():
+    log = logging.getLogger(app.name)
+    log.setLevel(logging.DEBUG)
+    log.debug("Debug")
+    log.info("Info")
+    log.warning("Warning")
+    log.error("Error")
+    return "Hello, world!"
+
+
 if __name__ == '__main__':
 
     logging_standard.init(app)
@@ -76,6 +87,8 @@ if __name__ == '__main__':
 
     # Go!
 
+    app.before_request(b3.start_span)
+    app.after_request(b3.end_span)
     app.run(
         host="0.0.0.0",
         debug=True,
