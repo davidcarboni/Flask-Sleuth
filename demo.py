@@ -95,7 +95,6 @@ def subspan():
 
 if __name__ == '__main__':
 
-    logging_standard.init(app)
     with app.app_context():
         logging_demo()
         # parsing_demo()
