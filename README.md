@@ -29,10 +29,12 @@ Once imported, you should be able to use completely standard Python logging:
 That should be all you need.
 Simply importing the `flask_logging` module calls `logging.basicConfig` and configures Python logging. 
 
-NB `basicConfig` does nothing once the logging system is initialised
-so if you currently call `basicConfig`, you'll need to think about how to work with this.
+NB `basicConfig` does nothing once the logging system is initialised.
+If you currently call `basicConfig`, you'll need to think about how to work with this.
 
-You can run `demo.py` to see logging in action, or here are the two intended use cases:
+You can run `demo.py` to see logging in action.
+
+Here are the two intended use cases:
 
 ### Basic Spring Boot format
 
