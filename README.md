@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Standardise logging format to support interoperability. 
+Standardise logging format to support interoperability and implement distributed tracing.
 
 ## What's in the box?
 
