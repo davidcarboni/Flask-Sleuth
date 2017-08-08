@@ -9,7 +9,7 @@ Standardise logging format to support interoperability and implement distributed
 This project provides:
 
  * Logging in Spring Boot format using standard Python logging.
- * Including distributed trace information (B3) in Spring Cloud Sleuth format.
+ * Distributed trace information (B3) in Spring Cloud Sleuth format.
  * `regex.regex` Regexes that document the logging standard, which is based on Spring Boot and Spring Cloud Sleuth.
  * `demo` Python code to generate example log messages.
 
