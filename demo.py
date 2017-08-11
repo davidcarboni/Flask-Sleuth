@@ -9,7 +9,7 @@ timestamps, process IDs and thread names will (correctly) differ.
 """
 from regex import regex
 import logging
-import flask_logging
+import flask_sleuth
 from flask import Flask, g
 import b3
 
