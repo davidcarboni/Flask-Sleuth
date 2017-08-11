@@ -2,7 +2,7 @@ import unittest
 import os
 import re
 
-import unittest
+import sleuth
 
 
 class TestStringMethods(unittest.TestCase):
