@@ -6,7 +6,7 @@ Spring Cloud Sleuth logging implementation for Flask in Python 2/3.
 
 ## Purpose
 
-Standardise logging format to support interoperability and implement distributed tracing.
+Implement a Spring-style logging format to support interoperability and distributed tracing.
 
 ## What's in the box?
 
