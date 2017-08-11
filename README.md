@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/davidcarboni/flask_sleuth.svg?branch=master)](https://travis-ci.org/davidcarboni/flask_sleuth)
 
-# Spring Cloud Sleuth logging implementation for Flask in Python 2/3.
+# Flask Sleuth
+
+Spring Cloud Sleuth logging implementation for Flask in Python 2/3.
 
 ## Purpose
 
