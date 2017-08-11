@@ -14,10 +14,10 @@ This project provides:
 
  * Logging in Spring Boot format using standard Python logging.
  * Distributed trace information (B3) in Spring Cloud Sleuth format.
- * `regex.regex` Regexes that document the logging standard, which is based on Spring Boot and Spring Cloud Sleuth.
+ * `regex.regex` Regexes that document the log format, which is based on Spring Boot and Spring Cloud Sleuth.
  * `demo` Python code to generate example log messages.
 
-NB: this repo includes a copy of the [B3](https://gitlab.ros.gov.uk/CarbonD/flask_b3) 
+NB: this repo includes a copy of the [B3](https://github.com/davidcarboni/flask_b3) 
 code in order to log tracing information.
 
 ## Usage
@@ -56,5 +56,5 @@ Here are the two intended use cases:
 
 NB You'll likely want to call `start_span()` and `end_span()`
 using `Flask.before_request()` and `Flask.after_request()`.
-See the [flask_b3 README](https://gitlab.ros.gov.uk/CarbonD/flask_b3/blob/master/README.md)
+See the [flask_b3 README](https://github.com/davidcarboni/flask_b3/blob/master/README.md)
 for details.
