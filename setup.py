@@ -13,7 +13,7 @@ def test_suite():
     return suite
 
 
-setup(name='flask_logging',
+setup(name='Flask-Sleuth',
       version='0.0.1',
       description='Spring Cloud Sleuth logging implementation for Python 2/3.',
       long_description=readme(),
