@@ -14,8 +14,8 @@ This project provides:
 
  * Logging in Spring Boot format using standard Python logging.
  * Distributed trace information (B3) in Spring Cloud Sleuth format.
- * `regex.regex` Regexes that document the log format, which is based on Spring Boot and Spring Cloud Sleuth.
- * `demo` Python code to generate example log messages.
+ * `regex.regex.py` Regexes that document the log format, which is based on Spring Boot and Spring Cloud Sleuth.
+ * `app.py` Python code to generate example log messages.
 
 NB: this repo includes a copy of the [B3](https://github.com/davidcarboni/flask_b3) 
 code in order to log tracing information.
@@ -36,7 +36,7 @@ Simply importing the `flask_logging` module calls `logging.basicConfig` and conf
 NB `basicConfig` does nothing once the logging system is initialised.
 If you currently call `basicConfig`, you'll need to think about how to work with this.
 
-You can run `demo.py` to see logging in action.
+You can run `app.py` to see logging in action.
 
 Here are the two intended use cases:
 
