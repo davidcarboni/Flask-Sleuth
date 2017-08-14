@@ -7,50 +7,12 @@ NB the example Spring Boot lines come from a file and are re-logged through the 
 timestamps, process IDs and thread names will (correctly) differ.
 
 """
-from regex import regex
 import logging
-import flask_sleuth
+import sleuth
 from flask import Flask, g
 import b3
 
 app = Flask("myapp")
-
-
-def parsing_demo():
-    # Test out with the lines from tests/spring-boot.log
-    # There's an equivalent Python log in tests/python.log to prove the reverse process.
-    lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
-    # lines = [line.rstrip('\n') for line in open('tests/python.log')]
-
-    for line in lines:
-
-        values = regex.parse(line)
-        # print("Log line values: " + str(values))
-
-        if values:
-            print(line)
-            logger = logging.getLogger(values.get("logger_name"))
-            logger.setLevel(logging.DEBUG)
-
-            if values.get("transaction"):
-                tracing_info = values["transaction"]
-                setattr(g, b3.b3_trace_id, tracing_info["id"])
-                setattr(g, b3.b3_span_id, tracing_info["span"])
-                if tracing_info["exported"] == "true":
-                    setattr(g, b3.b3_sampled, "1")
-
-            level = values.get("log_level")
-            message = values["log_message"]
-            if level == "ERROR":
-                logger.error(message)
-            elif level == "WARN":
-                logger.warning(message)
-            elif level == "INFO":
-                logger.info(message)
-            elif level == "DEBUG":
-                logger.debug(message)
-
-            print("---")
 
 
 def logging_demo():
@@ -95,7 +57,6 @@ def subspan():
 if __name__ == '__main__':
     with app.app_context():
         logging_demo()
-        # parsing_demo()
 
     # Go!
 
