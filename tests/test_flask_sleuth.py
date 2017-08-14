@@ -1,129 +1,80 @@
 import unittest
-import os
-import re
 
+from flask import Flask
 import sleuth
+import b3
+from datetime import datetime
+from logging import Formatter
+import time
+import os
+from threading import current_thread
 
 
 class TestStringMethods(unittest.TestCase):
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOO')
+    def test_should_update_record(self):
+        # Given
+        # A mock LogRecord
+        created = time.time()
+        levelname = "WARNING"
+        name = "This is a logger name which is more that forty characters long"
+        record = MockLogRecord(created, levelname, name)
+        dt = datetime.fromtimestamp(time.time())
 
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
+        # When
+        # We update the record
+        sleuth._update_record(record)
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+        # Then
+        # The added fields should be as expected - and no tracing information
+        # str(datetime) is "2017-08-14 17:54:04.594704" - we're expecting milliseconds, which may
+        # be rounded up or dow from microseconds, so we use the millisecond value from record.asctime
+        self.assertEqual(record.springtime, str(dt)[:-6] + record.asctime[-3:])
+        self.assertEqual(record.levelname_spring, "WARN")
+        self.assertEqual(record.process_id, str(os.getpid()))
+        self.assertEqual(record.thread_name, (current_thread().getName())[:15])
+        self.assertEqual(record.logger_name, record.name[:40])
+        self.assertEqual(record.tracing_information, "")
+
+    def test_should_add_tracing_information(self):
+        # Given
+        with Flask("tracing").app_context():
+            # A mock LogRecord and B3 tracing information
+            created = time.time()
+            levelname = "INFO"
+            name = "Logger name"
+            record = MockLogRecord(created, levelname, name)
+            dt = datetime.fromtimestamp(time.time())
+            b3.start_span()
+            values = b3.values()
+
+            # When
+            # We update the record
+            sleuth._update_record(record)
+
+            # Then
+            # We should get tracing information
+            self.assertTrue(record.tracing_information)
+            # "[test,ba580718aefa94b9,ba580718aefa94b9,false] "
+            fields = record.tracing_information.strip()[1:-1].split(",")
+            self.assertEqual(fields[0], "tracing")
+            self.assertEqual(fields[1], values[b3.b3_trace_id])
+            self.assertEqual(fields[2], values[b3.b3_span_id])
+            self.assertEqual(fields[3], "false")
+
+
+class MockLogRecord:
+    def __init__(self, created, levelname, name):
+        # Set up the fields required by Formatter.formatTime()
+        self.created = created
+        self.msecs = int(str("%.3f" % self.created)[-3:])
+
+        # Use Formatter.formatTime() to get the exact String representation of that Python uses by default
+        self.asctime = Formatter().formatTime(self)
+
+        # Other expected values
+        self.levelname = levelname
+        self.name = name
 
 
 if __name__ == '__main__':
     unittest.main()
-
-# Example Spring Boot log line:
-# 2017-05-22 09:42:55.680  INFO 9730 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Lorem ipsum...
-
-# 2017-05-22 09:42:55.680
-_date_time = '(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d{3})'
-
-# INFO
-_log_level = '(\w+)'
-
-# 9730
-_process_id = '(\d+)'
-
-# ---
-_separator = '---'
-
-# [           main]
-_thread_name = '\[\s*([^\]]+)\]'
-
-# o.s.b.a.e.mvc.EndpointHandlerMapping
-_logger_name = '([\S]+)'
-
-# Lorem ipsum...
-_log_message = '(.*)'
-
-# All together now
-regex = _date_time + '\s+' + _log_level + '\s+' + _process_id + '\s+' + _separator + '\s+' + \
-        _thread_name + '\s+' + _logger_name + '\s*:\s+' + _log_message
-
-# Regex match groups
-DATE_TIME = 1
-LOG_LEVEL = 2
-PROCESS_ID = 3
-THREAD_NAME = 4
-LOGGER_NAME = 5
-LOG_MESSAGE = 6
-
-
-def match(line):
-    return re.search(regex, line)
-
-
-def field(value, width, right_justify=True):
-    """Right-justifies the given value in a field of the given width, padding with spaces, or trimming, as needed."""
-    # Adjust the thread name to 15 characters
-    if len(value) > width:
-        return value[0:width]
-    else:
-        if right_justify:
-            return value.rjust(width)
-        else:
-            return value.ljust(width)
-
-
-def message(log_level, logger_name, log_message):
-    """Generates a log message in a format close enough to Spring Boot that it will pass the regex."""
-    # Truncate date-time to milliseconds to match Spring Boot format
-    date_time = datetime.datetime.now().isoformat(' ', 'milliseconds')
-    if not log_level:
-        log_level = "INFO"
-    process_id = os.getpid()
-    thread_name = current_thread().getName()
-    if not logger_name:
-        logger_name = thread_name
-
-    # Adjust field widths as needed
-    log_level = field(log_level, 5)
-    thread_name = "[" + field(thread_name, 15) + "]"
-    logger_name = field(logger_name, 40, right_justify=False)
-
-    return " ".join(
-        (date_time, log_level, str(process_id), _separator, thread_name, logger_name, ":", log_message))
-
-
-if __name__ == '__main__':
-    f = open('tests/spring-boot.log')
-    s = f.read()
-    print(s)
-    matches = match(s)
-    print(matches.group(0))
-
-
-def foo():
-    # Test out with a few lines in spring-boot.log
-    lines = [line.rstrip('\n') for line in open('tests/spring-boot.log')]
-    for line in lines:
-        matches = match(line)
-        if matches:
-            values = {
-                'date_time': matches.group(DATE_TIME),
-                'log_level': matches.group(LOG_LEVEL),
-                'process_id': matches.group(PROCESS_ID),
-                'thread_name': matches.group(THREAD_NAME),
-                'logger_name': matches.group(LOGGER_NAME),
-                'log_message': matches.group(LOG_MESSAGE)[:100] + "..."
-            }
-            print()
-            print("Log line values: " + json.dumps(values))
-            print("---")
-            print("Original      : " + line[:170] + "...")
-            reconstructed = message(values['log_level'], values['logger_name'], values['log_message'])
-            print("Reconstructed : " + reconstructed[:170] + "...")
-        else:
-            print("Failed to match log line: " + str(line))
