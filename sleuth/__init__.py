@@ -5,7 +5,7 @@ from logging import Formatter
 from flask import current_app
 import b3
 
-_log_format = '%(asctime)s %(levelname_spring)+5s %(tracing_information)s' \
+_log_format = '%(springtime)s %(levelname_spring)+5s %(tracing_information)s' \
               '%(process_id)s --- [%(thread_name)+15s] %(logger_name)-40s : %(message)s'
 _python_record_factory = None
 
@@ -44,6 +44,7 @@ def _update_record(record):
     This adds additional information to the log record to implement the logging standard.
 
     :return: A log record augmented with the values required by LOG_FORMAT:
+     * springtime: LogRecord.asctime, but with a `.` instead of a `,` as the millisecond separator
      * levelname_spring: specifically, "WARN" instead of "WARNING"
      * process_id
      * thread_name
@@ -52,6 +53,7 @@ def _update_record(record):
     """
 
     # Standard fields
+    record.springtime = record.asctime.replace(",", ".")
     record.levelname_spring = "WARN" if record.levelname == "WARNING" else record.levelname
     record.process_id = str(os.getpid())
     record.thread_name = (current_thread().getName())[:15]
