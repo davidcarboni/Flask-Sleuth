@@ -9,7 +9,7 @@ def test_suite():
 
 
 setup(name='Flask-Sleuth',
-      version='0.0.3',
+      version='0.0.4',
       description='Spring Cloud Sleuth logging implementation for Python 2/3.',
       author='David Carboni',
       author_email='david@carboni.io',
