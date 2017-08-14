@@ -1,7 +1,7 @@
 import os
 from threading import current_thread
 import logging
-from logging import Formatter
+from datetime import datetime
 from flask import current_app
 import b3
 
@@ -22,7 +22,7 @@ def _python3_record_factory(*args, **kwargs):
     return record
 
 
-class Python2Formatter(Formatter):
+class Python2Formatter(logging.Formatter):
     """ Python 2 approach to custom logging, using `logging.getLogRecord(...)`
 
     Inspired by: http://masnun.com/2015/11/04/python-writing-custom-log-handler-and-formatter.html
@@ -53,7 +53,9 @@ def _update_record(record):
     """
 
     # Standard fields
-    record.springtime = record.asctime.replace(",", ".")
+    dt = datetime.fromtimestamp(record.created)
+    # Truncate microseconds to milliseconds
+    record.springtime = str(dt)[:-3]
     record.levelname_spring = "WARN" if record.levelname == "WARNING" else record.levelname
     record.process_id = str(os.getpid())
     record.thread_name = (current_thread().getName())[:15]
