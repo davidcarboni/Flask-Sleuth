@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/davidcarboni/flask_sleuth.svg?branch=master)](https://travis-ci.org/davidcarboni/flask_sleuth)
 
+
 # Flask Sleuth
 
 Spring Cloud Sleuth logging implementation for Flask in Python 2/3.
