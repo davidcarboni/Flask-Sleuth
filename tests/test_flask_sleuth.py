@@ -26,9 +26,9 @@ class TestStringMethods(unittest.TestCase):
 
         # Then
         # The added fields should be as expected - and no tracing information
-        # str(datetime) is "2017-08-14 17:54:04.594704" - we're expecting milliseconds, which may
-        # be rounded up or dow from microseconds, so we use the millisecond value from record.asctime
-        self.assertEqual(record.springtime, str(dt)[:-6] + record.asctime[-3:])
+        # str(datetime) will look like "2017-08-14 17:54:04.594704" (microseconds). We're expecting milliseconds,
+        # which may be rounded up or down from microseconds, so we truncate the millisecond value to two digits.
+        self.assertEqual(record.springtime[:-1], str(dt)[:-4])
         self.assertEqual(record.levelname_spring, "WARN")
         self.assertEqual(record.process_id, str(os.getpid()))
         self.assertEqual(record.thread_name, (current_thread().getName())[:15])
