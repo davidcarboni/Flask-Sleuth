@@ -24,7 +24,7 @@ setup(name='Flask-Sleuth',
           'License :: OSI Approved :: MIT License',
       ],
       keywords=['logging', 'b3', 'distributed', 'tracing', 'spring', 'boot', 'cloud', 'sleuth'],
-      url='https://github.com/davidcarboni/flask_sleuth',
+      url='https://github.com/rosgovuk/flask_sleuth',
       license='MIT',
       packages=find_packages(),
       install_requires=[
