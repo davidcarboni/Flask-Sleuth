@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rosgovuk/Flask-Sleuth.svg?branch=master)](https://travis-ci.org/rosgovuk/Flask-Sleuth)
+[![Build Status](https://travis-ci.org/davidcarboni/Flask-Sleuth.svg?branch=master)](https://travis-ci.org/davidcarboni/Flask-Sleuth)
 
 
 # Flask Sleuth
